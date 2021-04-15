@@ -80,10 +80,10 @@
 
 		<!-- 유틸용, Maps.of 같은거 쓸 수 있게 해줌 -->
 		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-			<version>2.5.7</version>
-			<type>pom</type>
+		    <groupId>org.codehaus.groovy</groupId>
+		    <artifactId>groovy-all</artifactId>
+		    <version>3.0.7</version>
+		    <type>pom</type>
 		</dependency>
 
 		<!-- 이게 있으면 실행되는 SQL을 예쁘게 로그로 보여줍니다. -->
