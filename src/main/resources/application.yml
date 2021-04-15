@@ -1,11 +1,11 @@
 mybatis:
-  type-aliases-package: com.sbs.starter.dto
+  type-aliases-package: com.example.starter.dto
 server:
-  port: 8080
+  port: 8070
 spring:
   mvc:
     view:
-      prefix: /WEB-INF/jsp/ 
+      prefix: /WEB-INF/jsp/
       suffix: .jsp
   datasource:
     # driver-class-name: com.mysql.cj.jdbc.Driver
