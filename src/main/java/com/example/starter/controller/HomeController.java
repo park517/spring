@@ -1,14 +1,14 @@
 package com.example.starter.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller 
+@Controller
 public class HomeController {
-	@RequestMapping("/home/main")
-	@ResponseBody
+	@RequestMapping("/")
 	public String showMain() {
-		return "메인화면 입니다";
+		return "article/index";
 	}
 }

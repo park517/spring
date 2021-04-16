@@ -13,6 +13,7 @@ public class Article {
 	private String regDate;
 	private String title;
 	private String body;
+	private int hit;
 
 	
 }
