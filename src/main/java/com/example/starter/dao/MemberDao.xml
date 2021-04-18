@@ -12,7 +12,7 @@
 		SELECT *
 		FROM member
 		WHERE mid = #{id}
-		and mpassword = #{password}
+		and password = #{password}
 	</select>
 	
 	
@@ -20,7 +20,7 @@
 		keyProperty="mid">
 		INSERT INTO member
 		SET mid = #{userId},
-		mpassword = #{password},
+		password = #{password},
 		name = #{name},
 		email = #{email},
 		tel = #{tel},

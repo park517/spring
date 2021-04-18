@@ -7,11 +7,11 @@ import com.example.starter.dto.Article;
 
 public interface ArticleService {
 	public List<Article> getList();
-	public Article getOne(long id);
+	public Article getOne(long aid);
 	public long add(Map<String, Object> param);
-	public void delete(long id);
+	public void delete(long aid);
 	public void modify(Map<String, Object> param);
-	public void hitUp(long id);
+	public void hitUp(long aid);
 	
 	
 }

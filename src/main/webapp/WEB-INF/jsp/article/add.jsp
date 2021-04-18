@@ -38,19 +38,15 @@ body {
 		<div class="container" role="main">
 			<h2>board Form</h2>
 			<form name="form" id="form" role="form" method="post" action="./doAdd">
+				<input type="hidden" name="mid" value="${loginMember.mid}">
 				<div class="mb-3">
 					<label for="title">제목</label>
 					<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
                 </div>
 
 				<div class="mb-3">
-					<label for="reg_id">작성자</label>
-					<input type="text" class="form-control" name="reg_id" id="reg_id" placeholder="이름을 입력해 주세요">
-                </div>
-
-				<div class="mb-3">
 					<label for="content">내용</label>
-					<textarea class="form-control" rows="5" name="body" id="content" placeholder="내용을 입력해 주세요" ></textarea>
+					<textarea class="form-control" rows="5" name="contents" id="content" placeholder="내용을 입력해 주세요" ></textarea>
 				</div>
 
 			</form>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html><
 <head>
@@ -19,12 +19,20 @@
 
 	$(document).on('click', '#btnUpdate', function(e){
 		e.preventDefault();
-		$("#form").submit();
+		let deleteCheck = confirm("수정하시겠습니까?");
+		if(deleteCheck)	$("#form").submit();
 	});
 	$(document).on('click', '#btnList', function(e){
 		e.preventDefault();
 		location.href="./list";
 	});
+	$(document).on('click', '#btnDelete', function(e){
+		e.preventDefault();
+		let deleteCheck = confirm("삭제하시겠습니까?");
+		
+		if(deleteCheck)	location.href="./doDelete?aid=${article.aid}";
+	});
+
 </script>
 <style>
 body {
@@ -36,7 +44,7 @@ body {
 <body>
 	<article>
 		<div class="container" role="main">
-			<h2>수정하기</h2>
+			<h2>글 내용 보기</h2>
 			<form name="form" id="form" role="form" method="post" action="./modify">
 				<div class="mb-3">
 					<label for="title">제목</label>
@@ -45,12 +53,15 @@ body {
 
 				<div class="mb-3">
 					<label for="content">내용</label>
-					<textarea class="form-control" rows="5" name="body" id="content" readonly="readonly">${article.body}</textarea>
+					<textarea class="form-control" rows="5" name="contents" id="content" readonly="readonly">${article.contents}</textarea>
 				</div>
 
 			</form>
-			<div >
-				<button type="button" class="btn btn-sm btn-primary" id="btnUpdate">수정</button>
+			<div>
+				<c:if test="${article.mid eq loginMember.mid}">
+					<button type="button" class="btn btn-sm btn-primary" id="btnUpdate">수정</button>
+					<button type="button" class="btn btn-sm btn-primary" id="btnDelete">삭제</button>
+				</c:if>
 				<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
 
 			</div>

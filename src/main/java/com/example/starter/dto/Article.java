@@ -9,11 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Article {
 
-	private long id;
-	private String regDate;
+	private long aid;
+	private String mid;
 	private String title;
-	private String body;
+	private String contents;
+	private String regDate;
 	private int hit;
+	private String fileRealName;
+	private String fileName;
 
 	
 }

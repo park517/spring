@@ -51,7 +51,7 @@ public class MemberController {
 		}
 
 		model.addAttribute("alertMsg", RegisterRs.get("msg"));
-		model.addAttribute("redirectUrl", "/");
+		model.addAttribute("historyBack",true);
 		
 		return "common/redirect";
 		
@@ -71,8 +71,17 @@ public class MemberController {
 		session.setAttribute("loginMember", member);
 		
 		model.addAttribute("alertMsg", "로그인 되었습니다.");
-		model.addAttribute("redirectUrl", "/");
+		model.addAttribute("historyBack",true);
 		
-		return "article/index";
+		return "common/redirect";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(Model model ,HttpSession session) {
+		session.removeAttribute("loginMember");
+		model.addAttribute("alertMsg", "로그아웃 되었습니다.");
+		model.addAttribute("historyBack",true);
+		
+		return "common/redirect";
 	}
 }

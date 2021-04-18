@@ -37,26 +37,27 @@
 			<form action="./add">
 				<table class="table table-hover tablestriped text-center" style="border: 1px solid;">
 					<thead>
-						<th>아이디</th>
+						<th>글 번호</th>
 						<th>제목</th>
 						<th>내용</th>
 						<th>작성일</th>
 						<th>조회수</th>
 					</thead>
-					<c:forEach var="article" items="${list}">
+					<c:forEach var="article" items="${list}" varStatus="st">
 						<tbody>
 							<tr>
-								<td>${article.id}</td>
-								<td><a href="./detail?id=${article.id}">${article.title}</a></td>
-								<td>${article.body}</td>
+								<td>${st.index+1}</td>
+								<td><a href="./detail?aid=${article.aid}">${article.title}</a></td>
+								<td>${article.contents}</td>
 								<td>${article.regDate}</td>
 								<td>${article.hit}</td>
 							</tr>			
 						</tbody>
 					</c:forEach>
 				</table>
-				
-				<button class="btn btn-primary">글 작성하기</button>
+				<c:if test="${!empty loginMember}">
+					<button class="btn btn-primary">글 작성하기</button>
+				</c:if>
 			</form>
 		</div>	
 	</div>

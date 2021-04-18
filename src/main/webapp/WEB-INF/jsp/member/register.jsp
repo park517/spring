@@ -32,12 +32,13 @@
             text-align: center;
         }
     </style>
+    
     <body>
         <form class="form-horizontal" action='./doRegister' method="POST">
 		
             <img src="/images/my_logo.png">
 			<div id="legend">
-				<legend class="">회원가입</legend>
+				<legend>회원가입</legend>
 			</div>
             <fieldset>
 
@@ -65,21 +66,22 @@
                             name="password"
                             placeholder=""
                             class="input-xlarge">
-                        <p class="help-block">Password should be at least 4 characters</p>
+                        <p class="help-block">비밀번호를 입력해주세요</p>
                     </div>
                 </div>
                 
                 <div class="control-group">
                     <!-- Password -->
-                    <label class="control-label" for="password_confirm">Password (Confirm)</label>
+                    <label class="control-label" for="password_confirm">비밀번호 재입력</label>
                     <div class="controls">
                         <input
+                        	onblur="checkPassword()"
                             type="password"
                             id="password_confirm"
                             name="password_confirm"
                             placeholder=""
                             class="input-xlarge">
-                        <p class="help-block">Please confirm password</p>
+                        <p class="help-block">비밀번호를 다시 입력해주세요!</p>
                     </div>
                 </div>
                 
@@ -123,6 +125,21 @@
                 </div>
             </fieldset>
         </form>
+        
+    <script type="text/javascript">
 
+	    let password = document.getElementById('password');
+	    let password_confirm = document.getElementById('password_confirm');
+		console.log(password);
+		console.log(password_confirm);
+	    function checkPassword() {
+	    	if(password.value !== password_confirm.value) {
+	    		alert("비밀번호가 일치 하지 않습니다.");
+	    		password.value ="";
+	    		password_confirm.value = "";
+	    		password.focus();
+	    	}	
+	    }
+    </script>
     </body>
 </html>

@@ -17,7 +17,7 @@
 <body>
 	<h1>게시물 작성</h1>
 	<form class="con common-form" action="./doModify" method="post" >
-		<input type="hidden" name="id" value="${article.id}">
+		<input type="hidden" name="id" value="${article.aid}">
 		<div>
 			<span>
 				제목
@@ -32,7 +32,7 @@
 				내용
 			</span>
 			<div>
-				<textarea name="body" placeholder="내용">${article.body}</textarea>
+				<textarea name="body" placeholder="내용">${article.contents}</textarea>
 			</div>
 		</div>
 		

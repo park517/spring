@@ -5,7 +5,7 @@
 <head>
 	<%@include file="../part/head.jspf"%>
     <link rel="stylesheet" href="/resource/index.css">
-    <title>Document</title>
+    <title>Spring boot를 활용한 게시판 </title>
 </head>
 <body>
 
@@ -26,17 +26,17 @@
         <div class="col-md-4">
           <h2>템플릿</h2>
           <p>이번 공부 시 템플릿은 JSP를 사용하도록 하겠습니다.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+         
         </div>
         <div class="col-md-4">
           <h2>DB</h2>
           <p>db는 친숙한 Mysql를 사용 한후 JPA를 공부해보도록 하겠습니다. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          
        </div>
         <div class="col-md-4">
           <h2>화면구성</h2>
           <p>화면 구성은 부트스트랩를 사용해보도록 하겟습니다!</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          
         </div>
       </div>
 

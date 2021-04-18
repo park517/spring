@@ -36,10 +36,10 @@ public class ArticleController {
 	
 	// id에 맞는 게시물 가져오기
 	@RequestMapping("/article/detail")
-	public String showDetail(Model model , long id) {
+	public String showDetail(Model model , long aid) {
 		
-		Article article = articleService.getOne(id);
-		articleService.hitUp(id);
+		Article article = articleService.getOne(aid);
+		articleService.hitUp(aid);
 		model.addAttribute("article", article);
 
 		return "article/detail";
@@ -61,7 +61,7 @@ public class ArticleController {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("alert('"+msg+"');");
-		sb.append("location.replace('./detail?id="+newId+"');");
+		sb.append("location.replace('./detail?aid="+newId+"');");
 		sb.insert(0, "<script>");
 		sb.append("</script>");
 		
@@ -71,10 +71,10 @@ public class ArticleController {
 	// 게시물 삭제하기
 	@RequestMapping("/article/doDelete")
 	@ResponseBody
-	public String doDelete(long id) {
-		articleService.delete(id);
+	public String doDelete(long aid) {
+		articleService.delete(aid);
 
-		String msg = id + "번 게시물이 삭제되었습니다.";
+		String msg = aid + "번 게시물이 삭제되었습니다.";
 
 		StringBuilder sb = new StringBuilder();
 
@@ -89,8 +89,8 @@ public class ArticleController {
 	
 	// 게시물 수정 페이지 이동
 	@RequestMapping("/article/modify")
-	public String modify(Model model , long id) {
-		Article article = articleService.getOne(id);
+	public String modify(Model model , long aid) {
+		Article article = articleService.getOne(aid);
 		model.addAttribute("article",article);
 		return "article/modify";
 	}
@@ -99,15 +99,15 @@ public class ArticleController {
 	
 	@RequestMapping("/article/doModify")
 	@ResponseBody
-	public String doModify(@RequestParam Map<String, Object> param, long id) {
+	public String doModify(@RequestParam Map<String, Object> param, long aid) {
 		articleService.modify(param);
 
-		String msg = id + "번 게시물이 수정되었습니다.";
+		String msg = aid + "번 게시물이 수정되었습니다.";
 
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("alert('" + msg + "');");
-		sb.append("location.replace('./detail?id=" + id + "');");
+		sb.append("location.replace('./detail?aid=" + aid + "');");
 
 		sb.insert(0, "<script>");
 		sb.append("</script>");

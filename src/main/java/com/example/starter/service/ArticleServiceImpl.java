@@ -27,8 +27,8 @@ public class ArticleServiceImpl implements ArticleService{
 		return list;
 	}
 	@Override
-	public Article getOne(long id) {
-		Article article = articleDao.getOne(id);
+	public Article getOne(long aid) {
+		Article article = articleDao.getOne(aid);
 		return article;
 	}
 
@@ -37,13 +37,13 @@ public class ArticleServiceImpl implements ArticleService{
 	public long add(Map<String, Object> param) {
 		articleDao.add(param);
 		
-		return CUtil.getAsLong(param.get("id"));
+		return CUtil.getAsLong(param.get("aid"));
 	}
 	
 	@Override
-	public void delete(long id) {
+	public void delete(long aid) {
 		// TODO Auto-generated method stub
-		articleDao.delete(id);
+		articleDao.delete(aid);
 	}
 	
 	@Override
@@ -52,7 +52,7 @@ public class ArticleServiceImpl implements ArticleService{
 		
 	}
 	@Override
-	public void hitUp(long id) {
-		articleDao.hitUp(id);
+	public void hitUp(long aid) {
+		articleDao.hitUp(aid);
 	}
 }

@@ -13,7 +13,7 @@
 		alert(alertMsg);
 	}
 	if (historyBack) {
-		history.back();
+		location.href = document.referrer;
 	}
 	if ( redirectUrl ) {
 		location.replace(redirectUrl);
