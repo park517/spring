@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.example.starter.dao.FileDao">
+		<!--useGeneratedKeys = 생성할 때 생기는 기본키 가져와서 id에 맵핑하기 -->
+	<!-- #{} 와 ${}의 차이 #{}은 자동으로 ''가 생성되어 들어간다  -->
+	<insert id ="insertFile" parameterType = "FileDto" useGeneratedKeys="true" keyProperty = "fid" >
+		INSERT INTO file
+		SET	
+			aid = #{aid}, 
+			fileRealName = #{fileRealName},
+			fileName = #{fileName},
+			path = #{path}
+	</insert>
+	
+	<select id="getFile" parameterType="long" resultType="FileDto">
+		select * from file
+		where aid = #{aid}
+	</select>
+	
+</mapper>

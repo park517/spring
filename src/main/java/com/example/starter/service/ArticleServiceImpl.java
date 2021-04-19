@@ -1,5 +1,7 @@
 package com.example.starter.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +9,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.starter.dao.ArticleDao;
+import com.example.starter.dao.FileDao;
 import com.example.starter.dto.Article;
+import com.example.starter.dto.FileDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,9 +42,12 @@ public class ArticleServiceImpl implements ArticleService{
 	@Override
 	public long add(Map<String, Object> param) {
 		articleDao.add(param);
-		
 		return CUtil.getAsLong(param.get("aid"));
 	}
+	
+
+	
+
 	
 	@Override
 	public void delete(long aid) {
@@ -55,4 +64,6 @@ public class ArticleServiceImpl implements ArticleService{
 	public void hitUp(long aid) {
 		articleDao.hitUp(aid);
 	}
+
+
 }

@@ -51,7 +51,7 @@ public class MemberController {
 		}
 
 		model.addAttribute("alertMsg", RegisterRs.get("msg"));
-		model.addAttribute("historyBack",true);
+		model.addAttribute("redirectUrl","/");
 		
 		return "common/redirect";
 		

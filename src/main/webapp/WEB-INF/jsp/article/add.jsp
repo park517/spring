@@ -31,19 +31,28 @@ body {
   padding-top: 70px;
   padding-bottom: 30px;
 }
+h1 {
+	margin-bottom: 20px;
+
+}
 </style>
 </head>
 <body>
 	<article>
 		<div class="container" role="main">
-			<h2>board Form</h2>
-			<form name="form" id="form" role="form" method="post" action="./doAdd">
+			<h1>board Form</h1>
+			<form name="form" id="form" role="form" method="post" action="./doAdd" enctype="multipart/form-data">
 				<input type="hidden" name="mid" value="${loginMember.mid}">
 				<div class="mb-3">
 					<label for="title">제목</label>
 					<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
                 </div>
 
+		        <div class="mb-3">
+		            <label for="file"><strong>첨부 파일</strong></label>
+					<input type="file" class="form-control" name="file" id="file" placeholder="파일을 선택해 주세요">
+		        </div>
+		        
 				<div class="mb-3">
 					<label for="content">내용</label>
 					<textarea class="form-control" rows="5" name="contents" id="content" placeholder="내용을 입력해 주세요" ></textarea>

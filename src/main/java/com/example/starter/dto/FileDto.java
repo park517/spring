@@ -7,12 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Article {
-
-	private long aid;
-	private String mid;
-	private String title;
-	private String contents;
-	private String regDate;
-	private int hit;
+public class FileDto {
+	private Long fid;
+	private Long aid;
+	private String fileRealName;
+	private String fileName;
+	private String path;
 }

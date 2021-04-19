@@ -120,7 +120,8 @@
                 <div class="control-group">
                     <!-- Button -->
                     <div class="controls">
-                        <button class="btn btn-success">Register</button>
+                        <button class="btn btn-success">가입하기</button>
+                        <button type="button" class="btn btn-danger" onclick="history.back()">취소</button>
                     </div>
                 </div>
             </fieldset>
