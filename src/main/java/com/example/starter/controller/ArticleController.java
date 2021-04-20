@@ -201,26 +201,39 @@ public class ArticleController {
 		return sb.toString();
 	}
 	
-	
-	// 게시물 삭제하기
+	// 댓글 삭제하기
 	@RequestMapping("/article/deleteComment")
 	@ResponseBody
-	public String deleteComment(long aid) {
-		articleService.delete(aid);
+	public String deleteComment(long sid) {
+		commentService.deleteComment(sid);
 
-		String msg = aid + "번 게시물이 삭제되었습니다.";
+		String msg = "댓글이 삭제되었습니다.";
 
 		StringBuilder sb = new StringBuilder();
-
 		sb.append("alert('" + msg + "');");
-		sb.append("location.replace('./list');");
-
+		sb.append("location.href = document.referrer;");
 		sb.insert(0, "<script>");
 		sb.append("</script>");
 
 		return sb.toString();
 	}
 	
+	// 댓글 수정하기
+	@RequestMapping("/article/updateComment")
+	@ResponseBody
+	public String updateComment(long sid, String comment) {
+
+		commentService.updateComment(sid, comment);
+		
+		String msg = "댓글이 수정되었습니다.";
+		StringBuilder sb = new StringBuilder();
+		sb.append("alert('" + msg + "');");
+		sb.append("location.href = document.referrer;");
+		sb.insert(0, "<script>");
+		sb.append("</script>");
+
+		return sb.toString();
+	}
 	
 	
 	

@@ -24,6 +24,18 @@ public class CommentServiceImpl implements CommentService{
 	public List<CommentDto> getComment(long aid) {
 		return commentDao.getComment(aid);
 	}
+
+	@Override
+	public void deleteComment(long sid) {
+		commentDao.deleteComment(sid);
+		
+	}
+
+	@Override
+	public void updateComment(long sid , String scontents) {
+		commentDao.updateComment(sid,scontents);
+		
+	}
 	
 
 }

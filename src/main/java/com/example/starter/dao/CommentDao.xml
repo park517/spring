@@ -19,6 +19,18 @@
 
 	</insert>
 	
+	<delete id="deleteComment" parameterType="long">
+		DELETE FROM comment
+		WHERE sid = ${sid}
+	</delete>
+	
+	<update id ="updateComment" parameterType="long" >
+		UPDATE comment
+		SET scontents = #{scontents}
+		WHERE sid = ${sid}
+	</update>
+
+	
 	
 	
 </mapper>

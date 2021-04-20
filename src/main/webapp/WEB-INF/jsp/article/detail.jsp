@@ -7,30 +7,14 @@
 <meta charset="UTF-8">
 
 <%@include file="../part/head.jspf" %>
- <link rel="stylesheet" href="/resource/detail.css">
+<link rel="stylesheet" href="/resource/detail.css">
 <title>board</title>
-<script>
 
-	$(document).on('click', '#btnUpdate', function(e){
-		e.preventDefault();
-		let deleteCheck = confirm("수정하시겠습니까?");
-		if(deleteCheck)	$("#form").submit();
-	});
-	$(document).on('click', '#btnList', function(e){
-		e.preventDefault();
-		location.href="./list";
-	});
-	$(document).on('click', '#btnDelete', function(e){
-		e.preventDefault();
-		let deleteCheck = confirm("삭제하시겠습니까?");
-		
-		if(deleteCheck)	location.href="./doDelete?aid=${article.aid}";
-	});
-
-</script>
 </head>
 <body>
 	<%@include file="../part/nav.jspf" %>
+	
+	<!-- 글이 상세내용이 보여지는 곳  -->
 	<div class="jumbotron">
 		<article>
 			<div class="container" role="main">
@@ -56,7 +40,7 @@
 				<div class="btn_group">
 					<c:if test="${article.mid eq loginMember.mid}">
 						<button type="button" class="btn btn-sm btn-primary" id="btnUpdate">수정</button>
-						<button type="button" class="btn btn-sm btn-primary" id="btnDelete">삭제</button>
+						<button type="button" class="btn btn-sm btn-primary" id="btnDelete" onclick="deleteArticle(${article.aid})">삭제</button>
 					</c:if>
 					<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
 	
@@ -65,6 +49,8 @@
 			</div>
 		</article>
 	</div>
+	
+	<!-- 댓글 다는 곳 로그인 시에만 보인다. -->
 	
 	<c:if test="${!empty loginMember}">
 		<div class="jumbotron">
@@ -87,16 +73,23 @@
 		</div>
 	</c:if>
 	
+		<!-- 댓글 리스트 -->
+		
 			<c:forEach var="comment" items="${commentList}">
 				<div class="container" id="comment_wrap" role="main">
-					<form name="form" id="comment_form" role="form" method="post" action="/article/deleteComment?sid=${comment.sid}">
+					<form name="form" id="comment_form" role="form" method="post" action="/article/updateComment?sid=${comment.sid}">
+						<input type="hidden" name="sid" value="${comment.sid}">
 						<div class="mb-3">
 							<p>${comment.mid}</p>
-							<textarea class="form-control" rows="3" name="comment" id="content" readonly="readonly">${comment.scontents}</textarea>
+							<textarea class="form-control" rows="3" name="comment" id="content${comment.sid}" readonly>${comment.scontents}</textarea>
 							<c:if test="${comment.mid eq loginMember.mid}">
-								<div class="btn_group">
-									<button type="submit" class="btn btn-sm btn-primary" id="btnCommentWrite">수정하기</button>
-									<button type="submit" class="btn btn-sm btn-primary" >삭제하기</button>
+								<div class="update_btn_group" id="update_btn_group${comment.sid}">
+									<button type="button" class="btn btn-sm btn-primary" id="btnCommentWrite" onclick="updateComment(${comment.sid})">수정하기</button>
+									<button type="button" class="btn btn-sm btn-primary" onclick="deleteComment(${comment.sid})" >삭제하기</button>
+								</div>
+								<div class="doUpdate_btn_group" id="doUpdate_btn_group${comment.sid}" style="display: none;" >
+									<button type="submit" class="btn btn-sm btn-primary">수정완료</button>
+									<button type="button" class="btn btn-sm btn-primary" onclick="cancleUpdate(${comment.sid},'${comment.scontents}')" >취소하기</button>
 								</div>
 							</c:if>
 						</div>
@@ -104,7 +97,7 @@
 				</div>
 			</c:forEach>
 	
-			
+<script src="/js/detail.js"></script>	
 </body>
 
 </html>
