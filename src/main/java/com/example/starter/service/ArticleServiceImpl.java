@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.starter.dao.ArticleDao;
 import com.example.starter.dao.FileDao;
 import com.example.starter.dto.Article;
+import com.example.starter.dto.Criteria;
 import com.example.starter.dto.FileDto;
+import com.example.starter.dto.PaginationInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,10 +48,6 @@ public class ArticleServiceImpl implements ArticleService{
 		return CUtil.getAsLong(param.get("aid"));
 	}
 	
-
-	
-
-	
 	@Override
 	public void delete(long aid) {
 		// TODO Auto-generated method stub
@@ -63,6 +62,20 @@ public class ArticleServiceImpl implements ArticleService{
 	@Override
 	public void hitUp(long aid) {
 		articleDao.hitUp(aid);
+	}
+	@Override
+	public List<Article> selectArticleList(Article article) {
+		List<Article> articleList = Collections.emptyList();
+		
+		int articleCount = articleDao.getTotalCount();
+		PaginationInfo paginationInfo = new PaginationInfo(article);
+		paginationInfo.setTotalRecordCount(articleCount);
+		article.setPaginationInfo(paginationInfo);
+		
+		if(articleCount > 0 ) {
+			articleList = articleDao.selectArticleList(article);
+		}
+		return articleList;
 	}
 
 

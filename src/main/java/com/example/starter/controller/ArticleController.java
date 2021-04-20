@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.starter.dto.Article;
 import com.example.starter.dto.CommentDto;
+import com.example.starter.dto.Criteria;
 import com.example.starter.dto.FileDto;
 import com.example.starter.dto.Member;
 import com.example.starter.service.ArticleService;
@@ -55,12 +56,13 @@ public class ArticleController {
 	
 	
 	// 게시물 리스트 가져오기
+	// 페이징 추가부분
 	@RequestMapping("/article/list")
-	public String showList(Model model) {
-		List<Article> list = articleService.getList();
-		model.addAttribute("list",list);
-		model.addAttribute("totalCount",list.size());
-		log.info("list : "+list);
+	public String showList(Article article, Model model) {
+		List<Article> articleList = articleService.selectArticleList(article);
+		model.addAttribute("list",articleList);
+		model.addAttribute("article",article);
+
 		return "article/list";
 	}
 	
