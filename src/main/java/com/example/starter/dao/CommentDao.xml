@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.example.starter.dao.CommentDao">
+
+	<select id ="getComment" parameterType = "long" resultType="CommentDto">
+		SELECT * FROM comment 
+		where aid = ${aid}
+	</select>
+	
+	<!--useGeneratedKeys = 생성할 때 생기는 기본키 가져와서 id에 맵핑하기 -->
+	<!-- #{} 와 ${}의 차이 #{}은 자동으로 ''가 생성되어 들어간다  -->
+	<insert id ="addComment" parameterType = "CommentDto" useGeneratedKeys="true" keyProperty = "aid" >
+	
+		INSERT INTO comment
+		SET	aid = #{aid}, 
+		mid = #{mid},
+		scontents = #{scontents}
+
+	</insert>
+	
+	
+	
+</mapper>

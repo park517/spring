@@ -66,7 +66,45 @@
 		</article>
 	</div>
 	
-
+	<c:if test="${!empty loginMember}">
+		<div class="jumbotron">
+			<article>
+				<div class="container" role="main">
+					<h2>댓글</h2>
+					<form name="form" id="comment_form" role="form" method="post" action="/article/doAddComment">
+	
+						<div class="mb-3">
+							<p>${loginMember.mid}</p>
+							<input type="hidden" value="${article.aid}" name="aid">
+							<textarea class="form-control" rows="5" name="comment" id="content" placeholder="댓글을 입력해주세요"></textarea>
+							<button type="submit" class="btn btn-sm btn-primary" id="btnCommentWrite">작성하기</button>
+						</div>
+						
+	
+					</form>
+				</div>
+			</article>
+		</div>
+	</c:if>
+	
+			<c:forEach var="comment" items="${commentList}">
+				<div class="container" id="comment_wrap" role="main">
+					<form name="form" id="comment_form" role="form" method="post" action="/article/deleteComment?sid=${comment.sid}">
+						<div class="mb-3">
+							<p>${comment.mid}</p>
+							<textarea class="form-control" rows="3" name="comment" id="content" readonly="readonly">${comment.scontents}</textarea>
+							<c:if test="${comment.mid eq loginMember.mid}">
+								<div class="btn_group">
+									<button type="submit" class="btn btn-sm btn-primary" id="btnCommentWrite">수정하기</button>
+									<button type="submit" class="btn btn-sm btn-primary" >삭제하기</button>
+								</div>
+							</c:if>
+						</div>
+					</form>
+				</div>
+			</c:forEach>
+	
+			
 </body>
 
 </html>

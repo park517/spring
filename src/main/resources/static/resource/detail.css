@@ -1,9 +1,7 @@
 @charset "UTF-8";
 
-
-.btn_group {
-	margin-top: 20px;
-
+.jumbotron {
+	padding : 0px;
 }
 
 #btnList ,#btnUpdate, #btnDelete {
@@ -11,6 +9,7 @@
 	height : 50px;
 	font-size :large;
 }
+
 
 #title, #content {
 	margin-top : 10px;
@@ -20,10 +19,6 @@
 
 .jumbotron {
 	margin-top : 30px;
-}
-
-.container {
-	font-size : 20px;
 }
 
 #form {
@@ -44,3 +39,17 @@
 	color : #9d9d9d;
 	margin-right: 20px;
 }
+
+
+/*  댓글 영역 */
+#comment_form {
+	height: 250px;
+}
+
+#comment_wrap {
+	font-size : 15px;	
+}
+#comment_wrap p {
+	font-size : 25px;
+}
+

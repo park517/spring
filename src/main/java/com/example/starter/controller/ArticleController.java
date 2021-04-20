@@ -13,6 +13,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
 import org.junit.platform.commons.util.StringUtils;
@@ -20,14 +21,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.starter.dto.Article;
+import com.example.starter.dto.CommentDto;
 import com.example.starter.dto.FileDto;
+import com.example.starter.dto.Member;
 import com.example.starter.service.ArticleService;
+import com.example.starter.service.CUtil;
+import com.example.starter.service.CommentService;
 import com.example.starter.service.FileService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +48,10 @@ public class ArticleController {
 	
 	@Autowired
 	FileService fileService;
+	
+	@Autowired
+	CommentService commentService;
+	
 	
 	
 	// 게시물 리스트 가져오기
@@ -59,9 +69,11 @@ public class ArticleController {
 	public String showDetail(Model model , long aid) {
 		FileDto file = fileService.getFile(aid);
 		Article article = articleService.getOne(aid);
+		List<CommentDto> list = commentService.getComment(aid);
 		articleService.hitUp(aid);
 		model.addAttribute("file",file);
 		model.addAttribute("article", article);
+		model.addAttribute("commentList",list);
 		return "article/detail";
 	}
 	
@@ -158,6 +170,69 @@ public class ArticleController {
 		return sb.toString();
 	}
 	
+	
+	
+	//-------------------------------댓글 영역---------------------------------//
+	
+	//댓글 달기
+	@RequestMapping("/article/doAddComment")
+	@ResponseBody
+	public String doAddComment(@RequestParam Map<String, Object> param, HttpSession session) {
+		CommentDto commentdto = new CommentDto();
+		long aid = CUtil.getAsLong(param.get("aid"));
+		Member member = (Member)session.getAttribute("loginMember");
+		String mid = member.getMid();
+		String scontents = (String) param.get("comment");
+		
+		commentdto.setAid(aid);
+		commentdto.setMid(mid);
+		commentdto.setScontents(scontents);
+		commentService.addComment(commentdto);
+		
+		String msg = "댓글이 추가되었습니다";
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("alert('"+msg+"');");
+		sb.append("location.replace('./detail?aid="+aid+"');");
+		sb.insert(0, "<script>");
+		sb.append("</script>");
+		
+		return sb.toString();
+	}
+	
+	
+	// 게시물 삭제하기
+	@RequestMapping("/article/deleteComment")
+	@ResponseBody
+	public String deleteComment(long aid) {
+		articleService.delete(aid);
+
+		String msg = aid + "번 게시물이 삭제되었습니다.";
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("alert('" + msg + "');");
+		sb.append("location.replace('./list');");
+
+		sb.insert(0, "<script>");
+		sb.append("</script>");
+
+		return sb.toString();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//파일 다운로드
 	@RequestMapping("/article/fileDown/{aid}")
     private void fileDown(@PathVariable long aid, HttpServletRequest request, HttpServletResponse response) throws Exception{
         
