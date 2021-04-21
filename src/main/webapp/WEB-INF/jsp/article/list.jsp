@@ -18,22 +18,21 @@
 		<div class="container">
 			<h2>게시판 리스트</h2>
 			<div class="header">
-					<select name="choice" class="selectpicker" data-style="btn-info">
+					<select id="type" name="choice" class="selectpicker" data-style="btn-info">
 					    <option value="">항목선택</option>
-					    <option value="학생">제목</option>
-					    <option value="회사원">내용</option>
-					    <option value="기타">작성자</option>
+					    <option value="title">제목</option>
+					    <option value="contents">내용</option>
+					    <option value="mid">작성자</option>
 					</select>
-					<input class="form-control" id="search" onkeyup="searchFunction()"  type="text" size="20" placeholder="검색어를 입력해주세요!">
-					<button class="btn btn-primary" onclick="searchFunction()" type="button">검색</button>
+					<input class="form-control" id="search" onkeyup="search()"  type="text" size="20" placeholder="검색어를 입력해주세요!">
+					<button class="btn btn-primary" onclick="search()" type="button">검색</button>
 			</div>
 			
 			<form action="./add">
-				<table class="table table-hover tablestriped text-center" style="border: 1px solid;">
+				<table id="articleList" class="table table-hover tablestriped text-center" style="border: 1px solid;">
 					<thead>
 						<th>글 번호</th>
 						<th>제목</th>
-						<th>내용</th>
 						<th>작성자</th>
 						<th>작성일</th>
 						<th>조회수</th>
@@ -43,7 +42,7 @@
 							<tr>
 								<td>${st.index+1}</td>
 								<td><a href="./detail?aid=${article.aid}">${article.title}</a></td>
-								<td>${article.contents}</td>
+								
 								<td>${article.mid}</td>
 								<td>${article.regDate}</td>
 								<td>${article.hit}</td>
@@ -78,23 +77,6 @@
 		</div>
 	</div>
 	
-	
-
-	<script>
-		
-		let url = window.location.search;
-		console.log("url : "+url);
-		url  =  url.replace("?","");
-		console.log("url : " +url);
-		let list = url.split('=');
-		let page = document.getElementById(list[1]);
-		console.log("page : "+page);
-		page.classList.add('active');
-
-	</script>
-
-
-
-	
+	<script src="/js/list.js"></script>
 </body>
 </html>

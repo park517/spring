@@ -77,6 +77,16 @@ public class ArticleServiceImpl implements ArticleService{
 		}
 		return articleList;
 	}
+	@Override
+	public List<Article> searchArticleList(String type, String keyword) {
+		
+		return articleDao.searchArticleList(type, keyword);
+	}
+	@Override
+	public int getCount(String type, String keyword) {
+		
+		return articleDao.getCount(type, keyword);
+	}
 
 
 }

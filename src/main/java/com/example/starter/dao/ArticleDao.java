@@ -16,9 +16,13 @@ public interface ArticleDao {
 	public void delete(long aid);
 	public void modify(Map<String, Object> param);
 	public void hitUp(long aid);
+
 	
 	//페이징에서 추가 부분
 	public List<Article> selectArticleList(Article article);
 	public int getTotalCount();
-	 
+	
+	//AJAX 추가부분
+	public List<Article> searchArticleList(String type, String keyword);
+	public int getCount(String type, String keyword);
 }

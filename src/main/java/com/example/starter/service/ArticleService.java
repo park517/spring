@@ -19,4 +19,8 @@ public interface ArticleService {
 	// 페이징 추가 부분
 	public List<Article> getList();
 	public List<Article> selectArticleList(Article article);
+	
+	// AJAX 추가 부분
+	public List<Article> searchArticleList(String type, String keyword);
+	public int getCount(String type, String keyword);
 }

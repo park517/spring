@@ -13,6 +13,13 @@
 	
 	</select>
 	
+	
+	<select id = "getCount" parameterType ="String" resultType ="int">
+		SELECT COUNT(*) FROM article
+		where  ${type} LIKE '%${keyword}%'
+	</select>
+	
+	
 	<select id="selectArticleList" parameterType="Article" resultType="Article">
 		SELECT
 			*
@@ -24,7 +31,11 @@
 			#{paginationInfo.firstRecordIndex}, #{recordsPerPage}
 	</select>
 	
-	
+	<select id="searchArticleList" parameterType = "String" resultType="Article">
+		SELECT *
+		FROM article 
+		WHERE ${type} LIKE '%${keyword}%'
+	</select>
 	
 	<select id="getOne" parameterType="long" resultType="Article">
 	
@@ -33,6 +44,8 @@
 		WHERE aid = #{aid}
 		
 	</select>
+	
+
 	
 	<!--useGeneratedKeys = 생성할 때 생기는 기본키 가져와서 id에 맵핑하기 -->
 	<!-- #{} 와 ${}의 차이 #{}은 자동으로 ''가 생성되어 들어간다  -->

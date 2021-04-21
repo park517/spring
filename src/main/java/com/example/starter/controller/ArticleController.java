@@ -45,6 +45,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j //이걸 해야 log.info(.._) 가 가능 , 디버깅 용도
 public class ArticleController {
+
 	@Autowired
 	ArticleService articleService;
 	
@@ -55,11 +56,12 @@ public class ArticleController {
 	CommentService commentService;
 	
 	
-	
+	//-------------------------------------------select 부분---------------------------------
 	// 게시물 리스트 가져오기
 	// 페이징 추가부분
 	@RequestMapping("/article/list")
 	public String showList(Article article, Model model) {
+		System.out.println("article에 대한 정보는 : "+article);
 		List<Article> articleList = articleService.selectArticleList(article);
 		model.addAttribute("list",articleList);
 		model.addAttribute("article",article);
@@ -80,6 +82,20 @@ public class ArticleController {
 		return "article/detail";
 	}
 	
+	@RequestMapping("/article/search")
+	@ResponseBody
+	public List<Article> search(@RequestParam String type,String keyword , Article article) {
+		
+		System.out.println("type :" +type);
+		System.out.println("keyword : " +keyword);
+		List<Article> list = articleService.searchArticleList(type, keyword);
+		System.out.println(list);
+		return list;
+	}
+	// ------------------------------------------------------------------------------
+	
+	
+	//---------------------------insert 문 관련---------------------------
 	// 게시물 추가하기
 	@RequestMapping("/article/add")
 	public String showAdd() {
@@ -93,8 +109,6 @@ public class ArticleController {
 		String msg;
 		List<FileDto> files = new ArrayList<>();
 		long newId= articleService.add(param);
-		System.out.println("file :" +file[0].getOriginalFilename());
-		System.out.println("file :" +file[1].getOriginalFilename());
 		if(file != null) {
 			for(MultipartFile f : file) {
 				FileDto fd = new FileDto();
@@ -117,10 +131,6 @@ public class ArticleController {
 		        files.add(fd);
 			}
 		}
-		
-
-		
-		System.out.println(files);
 		fileService.insertFile(files);
 		
 		if(file != null) {
@@ -139,7 +149,10 @@ public class ArticleController {
 		
 		return sb.toString();
 	}
+	//---------------------------------------------------------------------------
 	
+	
+	//--------------------------------------delete---------------------------------
 	// 게시물 삭제하기
 	@RequestMapping("/article/doDelete")
 	@ResponseBody
@@ -159,6 +172,9 @@ public class ArticleController {
 		return sb.toString();
 	}
 	
+	//----------------------------------------------------------
+	
+	//---------------------------update-------------------------
 	// 게시물 수정 페이지 이동
 	@RequestMapping("/article/modify")
 	public String modify(Model model , long aid) {
@@ -166,7 +182,7 @@ public class ArticleController {
 		model.addAttribute("article",article);
 		return "article/modify";
 	}
-
+	
 	// 게시물 수정
 	
 	@RequestMapping("/article/doModify")
@@ -187,7 +203,7 @@ public class ArticleController {
 		return sb.toString();
 	}
 	
-	
+	//---------------------------------------------------------------------//
 	
 	//-------------------------------댓글 영역---------------------------------//
 	
@@ -260,9 +276,9 @@ public class ArticleController {
 	
 	
 	
+	//------------------------------파일 다운로드-----------------------------
 	
 	
-	//파일 다운로드
 	@RequestMapping("/article/fileDown/{aid}/{index}")
     private void fileDown(@PathVariable long aid, @PathVariable int index, HttpServletRequest request, HttpServletResponse response) throws Exception{
         
