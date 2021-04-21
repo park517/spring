@@ -7,7 +7,7 @@
 	
 	
 	<!--  페이징 구현 추가 부분 -->
-	<select id ="getTotalCount" parameterType="Criteria" resultType="int">
+	<select id ="getTotalCount" resultType="int">
 	
 		SELECT COUNT(*) FROM article
 	

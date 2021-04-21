@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -29,7 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.starter.dto.Article;
 import com.example.starter.dto.CommentDto;
-import com.example.starter.dto.Criteria;
+import com.example.starter.pageing.Criteria;
 import com.example.starter.dto.FileDto;
 import com.example.starter.dto.Member;
 import com.example.starter.service.ArticleService;
@@ -69,11 +70,11 @@ public class ArticleController {
 	// id에 맞는 게시물 가져오기
 	@RequestMapping("/article/detail")
 	public String showDetail(Model model , long aid) {
-		FileDto file = fileService.getFile(aid);
+		List<FileDto> files = fileService.getFile(aid);
 		Article article = articleService.getOne(aid);
 		List<CommentDto> list = commentService.getComment(aid);
 		articleService.hitUp(aid);
-		model.addAttribute("file",file);
+		model.addAttribute("file",files);
 		model.addAttribute("article", article);
 		model.addAttribute("commentList",list);
 		return "article/detail";
@@ -87,34 +88,48 @@ public class ArticleController {
 	
 	@RequestMapping("/article/doAdd")
 	@ResponseBody
-	public String doAdd(@RequestParam Map<String , Object> param , @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+	public String doAdd(@RequestParam Map<String , Object> param , @RequestParam("file") MultipartFile file[]) throws IllegalStateException, IOException {
 		//Rquest는 오브젝트 타입이므로 키는 form의 name object는 그의 value 값이다
-		FileDto fd = new FileDto();
+		String msg;
+		List<FileDto> files = new ArrayList<>();
 		long newId= articleService.add(param);
+		System.out.println("file :" +file[0].getOriginalFilename());
+		System.out.println("file :" +file[1].getOriginalFilename());
 		if(file != null) {
-		    String sourceFileName = file.getOriginalFilename(); 
-		    String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase(); 
-		    File destinationFile; 
-		    String destinationFileName;
-		    String fileUrl = "C:/BrowserSpace301/starter/src/main/webapp/WEB-INF/upload/";
-	        do { 
-	            destinationFileName =UUID.randomUUID().toString().replaceAll("-", "") + "." + sourceFileNameExtension; 
-	            destinationFile = new File(fileUrl + destinationFileName); 
-	        } while (destinationFile.exists()); 
-	        
-	        destinationFile.getParentFile().mkdirs(); 
-	        file.transferTo(destinationFile);
-	        fd.setAid(newId);
-	        fd.setFileName(destinationFileName);
-	        fd.setFileRealName(sourceFileName);
-	        fd.setPath(fileUrl);
-	        
-	        fileService.insertFile(fd);
-			
+			for(MultipartFile f : file) {
+				FileDto fd = new FileDto();
+			    String sourceFileName = f.getOriginalFilename(); 
+			    String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase(); 
+			    File destinationFile; 
+			    String destinationFileName;
+			    String fileUrl = "C:/BrowserSpace301/starter/src/main/webapp/WEB-INF/upload/";
+		        do { 
+		            destinationFileName =UUID.randomUUID().toString().replaceAll("-", "") + "." + sourceFileNameExtension; 
+		            destinationFile = new File(fileUrl + destinationFileName); 
+		        } while (destinationFile.exists()); 
+		        
+		        destinationFile.getParentFile().mkdirs(); 
+		        f.transferTo(destinationFile);
+		        fd.setAid(newId);
+		        fd.setFileName(destinationFileName);
+		        fd.setFileRealName(sourceFileName);
+		        fd.setPath(fileUrl);
+		        files.add(fd);
+			}
 		}
 		
-		String msg = newId+ "번 게시물이 추가되었습니다";
+
 		
+		System.out.println(files);
+		fileService.insertFile(files);
+		
+		if(file != null) {
+			 msg = newId+ "번 게시물에 파일"+files.size()+"개도 같이 추가되었습니다";
+		}
+		else {
+			 msg = newId+ "번 게시물이 추가되었습니다";
+		}
+
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("alert('"+msg+"');");
@@ -248,21 +263,21 @@ public class ArticleController {
 	
 	
 	//파일 다운로드
-	@RequestMapping("/article/fileDown/{aid}")
-    private void fileDown(@PathVariable long aid, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	@RequestMapping("/article/fileDown/{aid}/{index}")
+    private void fileDown(@PathVariable long aid, @PathVariable int index, HttpServletRequest request, HttpServletResponse response) throws Exception{
         
         request.setCharacterEncoding("UTF-8");
-        FileDto fileDto = fileService.getFile(aid);
+        List<FileDto> fileDto = fileService.getFile(aid);
         
         //파일 업로드된 경로 
         try{
-            String fileUrl = fileDto.getPath();
+            String fileUrl = fileDto.get(index).getPath();
             fileUrl += "/";
             String savePath = fileUrl;
-            String fileName = fileDto.getFileName();
+            String fileName = fileDto.get(index).getFileName();
             
             //실제 내보낼 파일명 
-            String oriFileName = fileDto.getFileRealName();
+            String oriFileName = fileDto.get(index).getFileRealName();
             InputStream in = null;
             OutputStream os = null;
             File file = null;

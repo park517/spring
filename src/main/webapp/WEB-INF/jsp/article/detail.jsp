@@ -27,8 +27,11 @@
 	                <c:if test="${!empty file}">
 		                <div class="mb-3">
 							<label for="title">첨부파일</label>
-							<p><a href="/article/fileDown/${file.aid}">${file.fileRealName}</a><p>
+							<c:forEach var="files" items="${file}" varStatus="status">
+							<p><a href="/article/fileDown/${files.aid}/${status.index}">${files.fileRealName}</a><p>
+						    </c:forEach>
 		                </div>
+		             
 	                </c:if>
 	
 					<div class="mb-3">

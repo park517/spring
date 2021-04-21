@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.starter.dto.Article;
-import com.example.starter.dto.Criteria;
+import com.example.starter.pageing.Criteria;
 
 public interface ArticleService {
 

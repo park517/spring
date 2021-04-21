@@ -50,7 +50,7 @@ h1 {
 
 		        <div class="mb-3">
 		            <label for="file"><strong>첨부 파일</strong></label>
-					<input type="file" class="form-control" name="file" id="file" placeholder="파일을 선택해 주세요">
+					<input multiple="multiple" type="file" class="form-control" name="file" id="file" placeholder="파일을 선택해 주세요">
 		        </div>
 		        
 				<div class="mb-3">
@@ -61,7 +61,7 @@ h1 {
 			</form>
 			<div >
 				<button type="button" class="btn btn-sm btn-primary" id="btnSave">저장</button>
-				<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
+				<button type="button" class="btn btn-sm btn-primary" id="btnList">취소</button>
 
 			</div>
 

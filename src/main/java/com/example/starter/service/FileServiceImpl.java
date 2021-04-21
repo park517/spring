@@ -1,5 +1,7 @@
 package com.example.starter.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +18,13 @@ public class FileServiceImpl implements FileService{
 	@Autowired
 	FileDao fileDao;
 	@Override
-	public int insertFile(FileDto file) {
+	public int insertFile(List<FileDto> files) {
 		
-		return fileDao.insertFile(file);
+		return fileDao.insertFile(files);
 	}
 
 	@Override
-	public FileDto getFile(Long aid) {
+	public List<FileDto> getFile(Long aid) {
 		return fileDao.getFile(aid);
 	}
 

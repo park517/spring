@@ -1,4 +1,4 @@
-package com.example.starter.dto;
+package com.example.starter.pageing;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.example.starter.dto;
+package com.example.starter.pageing;
 
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;

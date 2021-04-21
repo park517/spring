@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.starter.dto.Article;
-import com.example.starter.dto.Criteria;
+import com.example.starter.pageing.Criteria;
 @Mapper // 이렇게 해주면 ArticleDao의 구현체를 마이바티스가 대신 구현해준다.
 public interface ArticleDao {
 	

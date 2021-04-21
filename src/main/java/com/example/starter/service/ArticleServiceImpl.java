@@ -16,9 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.starter.dao.ArticleDao;
 import com.example.starter.dao.FileDao;
 import com.example.starter.dto.Article;
-import com.example.starter.dto.Criteria;
+import com.example.starter.pageing.Criteria;
 import com.example.starter.dto.FileDto;
-import com.example.starter.dto.PaginationInfo;
+import com.example.starter.pageing.PaginationInfo;
 
 import lombok.extern.slf4j.Slf4j;
 

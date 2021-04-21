@@ -4,13 +4,18 @@
 <mapper namespace = "com.example.starter.dao.FileDao">
 		<!--useGeneratedKeys = 생성할 때 생기는 기본키 가져와서 id에 맵핑하기 -->
 	<!-- #{} 와 ${}의 차이 #{}은 자동으로 ''가 생성되어 들어간다  -->
-	<insert id ="insertFile" parameterType = "FileDto" useGeneratedKeys="true" keyProperty = "fid" >
+	<insert id ="insertFile" parameterType = "list">
 		INSERT INTO file
-		SET	
-			aid = #{aid}, 
-			fileRealName = #{fileRealName},
-			fileName = #{fileName},
-			path = #{path}
+			(aid,fileRealName,fileName,path)
+		values
+		<foreach collection="list" item ="item" separator =",">	
+		(
+			#{item.aid}, 
+			#{item.fileRealName},
+			#{item.fileName},
+			#{item.path}
+		)
+		</foreach>
 	</insert>
 	
 	<select id="getFile" parameterType="long" resultType="FileDto">

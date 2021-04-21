@@ -8,6 +8,6 @@ import com.example.starter.dto.FileDto;
 
 @Mapper
 public interface FileDao {
-	public int insertFile(FileDto file);
-	public FileDto getFile(long aid);
+	public int insertFile(List<FileDto> files);
+	public List<FileDto> getFile(long aid);
 }

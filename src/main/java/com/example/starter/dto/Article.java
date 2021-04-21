@@ -1,5 +1,7 @@
 package com.example.starter.dto;
 
+import com.example.starter.pageing.CommonDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
