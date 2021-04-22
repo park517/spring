@@ -10,7 +10,7 @@ $(document).on('click', '#btnUpdate', function(e){
 function deleteArticle(aid) {
 
 	let deleteCheck = confirm("삭제하시겠습니까?");
-	if(deleteCheck)	location.href="./doDelete?aid=${article.aid}";
+	if(deleteCheck)	location.href="./doDelete?aid="+aid;
 		
 }
 function deleteComment(sid) {

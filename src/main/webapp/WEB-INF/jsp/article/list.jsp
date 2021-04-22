@@ -24,8 +24,8 @@
 					    <option value="contents">내용</option>
 					    <option value="mid">작성자</option>
 					</select>
-					<input class="form-control" id="search" onkeyup="search()"  type="text" size="20" placeholder="검색어를 입력해주세요!">
-					<button class="btn btn-primary" onclick="search()" type="button">검색</button>
+					<input class="form-control" id="search" onkeyup="search(1)"  type="text" size="20" placeholder="검색어를 입력해주세요!">
+					<button class="btn btn-primary" onclick="search(1)" type="button">검색</button>
 			</div>
 			
 			<form action="./add">
@@ -55,7 +55,7 @@
 				</c:if>
 			</form>
 			
-			<ul class="pagination">
+			<ul class="pagination" id="pagination">
 				<li class="disabled">
 					<a href="#">
 					<span>«</span>
@@ -73,6 +73,11 @@
 				<span>»</span>
 				</a>
 				</li>
+			</ul>
+			
+					
+			<ul class="pagination" id="pagination1" style="display: none;">
+
 			</ul>
 		</div>
 	</div>

@@ -31,10 +31,14 @@
 			#{paginationInfo.firstRecordIndex}, #{recordsPerPage}
 	</select>
 	
-	<select id="searchArticleList" parameterType = "String" resultType="Article">
+	<select id="searchArticleList" parameterType = "Article" resultType="Article">
 		SELECT *
 		FROM article 
-		WHERE ${type} LIKE '%${keyword}%'
+		WHERE ${searchType} LIKE '%${searchKeyword}%'
+		ORDER BY
+			aid DESC
+		LIMIT
+			#{paginationInfo.firstRecordIndex}, #{recordsPerPage}
 	</select>
 	
 	<select id="getOne" parameterType="long" resultType="Article">

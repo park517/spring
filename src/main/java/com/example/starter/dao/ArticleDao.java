@@ -23,6 +23,6 @@ public interface ArticleDao {
 	public int getTotalCount();
 	
 	//AJAX 추가부분
-	public List<Article> searchArticleList(String type, String keyword);
+	public List<Article> searchArticleList(Article article);
 	public int getCount(String type, String keyword);
 }

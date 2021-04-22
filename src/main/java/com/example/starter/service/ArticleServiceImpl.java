@@ -78,15 +78,18 @@ public class ArticleServiceImpl implements ArticleService{
 		return articleList;
 	}
 	@Override
-	public List<Article> searchArticleList(String type, String keyword) {
-		
-		return articleDao.searchArticleList(type, keyword);
+	public List<Article> searchArticleList(Article article) {
+		List<Article> articleList = Collections.emptyList();
+		int articleCount = articleDao.getCount(article.getSearchType(), article.getSearchKeyword());
+		PaginationInfo paginationInfo = new PaginationInfo(article);
+		paginationInfo.setTotalRecordCount(articleCount);
+		article.setPaginationInfo(paginationInfo);
+		if(articleCount > 0 ) {
+			articleList = articleDao.searchArticleList(article);
+		}
+		return articleList;
 	}
-	@Override
-	public int getCount(String type, String keyword) {
-		
-		return articleDao.getCount(type, keyword);
-	}
+
 
 
 }

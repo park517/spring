@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -31,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.starter.dto.Article;
 import com.example.starter.dto.CommentDto;
 import com.example.starter.pageing.Criteria;
+import com.example.starter.pageing.PaginationInfo;
 import com.example.starter.dto.FileDto;
 import com.example.starter.dto.Member;
 import com.example.starter.service.ArticleService;
@@ -61,11 +63,13 @@ public class ArticleController {
 	// 페이징 추가부분
 	@RequestMapping("/article/list")
 	public String showList(Article article, Model model) {
-		System.out.println("article에 대한 정보는 : "+article);
+
 		List<Article> articleList = articleService.selectArticleList(article);
 		model.addAttribute("list",articleList);
 		model.addAttribute("article",article);
-
+		System.out.println("페이징 정보"+article.getPaginationInfo().getTotalRecordCount());
+		
+		
 		return "article/list";
 	}
 	
@@ -84,13 +88,18 @@ public class ArticleController {
 	
 	@RequestMapping("/article/search")
 	@ResponseBody
-	public List<Article> search(@RequestParam String type,String keyword , Article article) {
-		
-		System.out.println("type :" +type);
-		System.out.println("keyword : " +keyword);
-		List<Article> list = articleService.searchArticleList(type, keyword);
-		System.out.println(list);
-		return list;
+	public Map<String,Object> search(@RequestParam String type,String keyword , Article article) {
+		article.setSearchKeyword(keyword);
+		article.setSearchType(type);
+		List<Article> list = articleService.searchArticleList(article);
+		Map<String,Object> map = new HashMap<>();
+		PaginationInfo pagination = article.getPaginationInfo();
+		System.out.println(pagination);
+		List<Integer> pageList = new ArrayList<>();
+		pageList.add(pagination.getTotalPageCount());
+		map.put("list", list);
+		map.put("pageList", pageList);
+		return map;
 	}
 	// ------------------------------------------------------------------------------
 	

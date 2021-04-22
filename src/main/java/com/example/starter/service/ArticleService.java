@@ -21,6 +21,5 @@ public interface ArticleService {
 	public List<Article> selectArticleList(Article article);
 	
 	// AJAX 추가 부분
-	public List<Article> searchArticleList(String type, String keyword);
-	public int getCount(String type, String keyword);
+	public List<Article> searchArticleList(Article article);
 }
