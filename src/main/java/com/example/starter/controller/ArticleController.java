@@ -188,7 +188,10 @@ public class ArticleController {
 	@RequestMapping("/article/modify")
 	public String modify(Model model , long aid) {
 		Article article = articleService.getOne(aid);
+		List<FileDto> files = fileService.getFile(aid);
 		model.addAttribute("article",article);
+		model.addAttribute("files",files);
+		
 		return "article/modify";
 	}
 	
@@ -196,8 +199,9 @@ public class ArticleController {
 	
 	@RequestMapping("/article/doModify")
 	@ResponseBody
-	public String doModify(@RequestParam Map<String, Object> param, long aid) {
+	public String doModify(@RequestParam Map<String, Object> param, long aid ,HttpServletRequest request) {
 		articleService.modify(param);
+		String[] checkedFileList = request.getParameterValues("file_check");
 
 		String msg = aid + "번 게시물이 수정되었습니다.";
 
@@ -266,6 +270,7 @@ public class ArticleController {
 	public String updateComment(long sid, String comment) {
 
 		commentService.updateComment(sid, comment);
+		
 		
 		String msg = "댓글이 수정되었습니다.";
 		StringBuilder sb = new StringBuilder();

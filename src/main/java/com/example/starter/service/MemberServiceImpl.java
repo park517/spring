@@ -43,7 +43,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Map<String, Object> register(Map<String, Object> param) {
 		memberDao.register(param);
-		System.out.println("아이디의 객체 타입"+param.get("userId").getClass().getName());
 		String newId = (String)param.get("userId");
 
 		String resultCode = "";

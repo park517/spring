@@ -31,7 +31,6 @@
 							<p><a href="/article/fileDown/${files.aid}/${status.index}">${files.fileRealName}</a><p>
 						    </c:forEach>
 		                </div>
-		             
 	                </c:if>
 	
 					<div class="mb-3">
