@@ -23,4 +23,11 @@
 		where aid = #{aid}
 	</select>
 	
+	<delete id="deleteFile" parameterType="list">
+		DELETE FROM FILE
+		WHERE fileName = #{fileName}
+	
+	
+	</delete>
+	
 </mapper>

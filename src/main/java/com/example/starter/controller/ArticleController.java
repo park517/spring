@@ -39,6 +39,7 @@ import com.example.starter.service.ArticleService;
 import com.example.starter.service.CUtil;
 import com.example.starter.service.CommentService;
 import com.example.starter.service.FileService;
+import com.example.starter.service.FileUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -119,28 +120,13 @@ public class ArticleController {
 		List<FileDto> files = new ArrayList<>();
 		long newId= articleService.add(param);
 		if(file != null) {
-			for(MultipartFile f : file) {
-				FileDto fd = new FileDto();
-			    String sourceFileName = f.getOriginalFilename(); 
-			    String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase(); 
-			    File destinationFile; 
-			    String destinationFileName;
-			    String fileUrl = "C:/BrowserSpace301/starter/src/main/webapp/WEB-INF/upload/";
-		        do { 
-		            destinationFileName =UUID.randomUUID().toString().replaceAll("-", "") + "." + sourceFileNameExtension; 
-		            destinationFile = new File(fileUrl + destinationFileName); 
-		        } while (destinationFile.exists()); 
-		        
-		        destinationFile.getParentFile().mkdirs(); 
-		        f.transferTo(destinationFile);
-		        fd.setAid(newId);
-		        fd.setFileName(destinationFileName);
-		        fd.setFileRealName(sourceFileName);
-		        fd.setPath(fileUrl);
-		        files.add(fd);
-			}
+			FileUtil fileUtil = new FileUtil();
+			files = fileUtil.setFiles(file, newId);
 		}
+		
 		fileService.insertFile(files);
+		
+		
 		
 		if(file != null) {
 			 msg = newId+ "번 게시물에 파일"+files.size()+"개도 같이 추가되었습니다";
@@ -199,9 +185,31 @@ public class ArticleController {
 	
 	@RequestMapping("/article/doModify")
 	@ResponseBody
-	public String doModify(@RequestParam Map<String, Object> param, long aid ,HttpServletRequest request) {
+	public String doModify(@RequestParam Map<String, Object> param, @RequestParam("file") MultipartFile files[],
+							HttpServletRequest request) throws IllegalStateException, IOException {
+		
+		CUtil cUtil = new CUtil();
+		long aid =cUtil.getAsLong(param.get("aid"));
+		
 		articleService.modify(param);
+		
 		String[] checkedFileList = request.getParameterValues("file_check");
+		if(checkedFileList != null) {
+			for(String fn : checkedFileList) {
+				fileService.deleteFile(fn);
+				System.out.println("파일 목록" +fn);
+				String fileUrl = "C:/BrowserSpace301/starter/src/main/webapp/WEB-INF/upload/"+fn;
+				File file = new File(fileUrl);
+				if(file.exists()) file.delete();
+			}
+		}
+		
+		if(files != null && files.length>0) {
+			List<FileDto> fileList = new ArrayList<>();
+			FileUtil fileUtil = new FileUtil();
+			fileList =fileUtil.setFiles(files, aid);
+			fileService.insertFile(fileList);
+		}
 
 		String msg = aid + "번 게시물이 수정되었습니다.";
 

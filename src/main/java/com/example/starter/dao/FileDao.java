@@ -10,4 +10,5 @@ import com.example.starter.dto.FileDto;
 public interface FileDao {
 	public int insertFile(List<FileDto> files);
 	public List<FileDto> getFile(long aid);
+	public void deleteFile(String fileName);
 }

@@ -28,4 +28,10 @@ public class FileServiceImpl implements FileService{
 		return fileDao.getFile(aid);
 	}
 
+	@Override
+	public void deleteFile(String fileName) {
+		fileDao.deleteFile(fileName);
+		
+	}
+
 }

@@ -23,7 +23,7 @@
 		<article>
 			<div class="container" role="main">
 				<h1>글 내용 보기</h1>
-				<form name="form" id="form" role="form" method="post" action="./doModify">
+				<form name="form" id="form" role="form" method="post" action="./doModify" enctype="multipart/form-data">
 					<input type="hidden" name="aid" value="${article.aid}">
 					<div class="mb-3">
 						<label for="title">제목</label>
@@ -40,7 +40,7 @@
 							<label for="title">첨부파일목록</label>
 							<c:forEach var="file" items="${files}" varStatus="status">
 								<p>
-								<input type="checkbox" value="${file.fileRealName}" name="file_check">
+								<input type="checkbox" value="${file.fileName}" name="file_check">
 								${file.fileRealName}
 								</p>
 								
