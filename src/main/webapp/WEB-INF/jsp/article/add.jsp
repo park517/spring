@@ -14,6 +14,7 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
+<script type="text/javascript" src="/ckeditor/build/ckeditor.js"></script>
 <title>board</title>
 <script>
 
@@ -56,6 +57,60 @@ h1 {
 				<div class="mb-3">
 					<label for="content">내용</label>
 					<textarea class="form-control" rows="5" name="contents" id="content" placeholder="내용을 입력해 주세요" ></textarea>
+					<script>ClassicEditor
+							.create( document.querySelector( '#content' ), {
+								
+								toolbar: {
+									items: [
+										'heading',
+										'|',
+										'fontSize',
+										'fontColor',
+										'fontBackgroundColor',
+										'highlight',
+										'bold',
+										'fontFamily',
+										'italic',
+										'link',
+										'bulletedList',
+										'numberedList',
+										'|',
+										'outdent',
+										'indent',
+										'|',
+										'blockQuote',
+										'insertTable',
+										'mediaEmbed',
+										'undo',
+										'redo',
+										'code'
+									]
+								},
+								language: 'ko',
+								table: {
+									contentToolbar: [
+										'tableColumn',
+										'tableRow',
+										'mergeTableCells'
+									]
+								},
+								licenseKey: '',
+								
+								
+							} )
+							.then( editor => {
+								window.editor = editor;
+				
+								
+							} )
+							.catch( error => {
+								console.error( 'Oops, something went wrong!' );
+								console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+								console.warn( 'Build id: ct0u7m1a5f4q-56d26amjoidb' );
+								console.error( error );
+							} );
+					</script>
+
 				</div>
 
 			</form>

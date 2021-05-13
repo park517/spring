@@ -35,7 +35,9 @@
 	
 					<div class="mb-3">
 						<label for="content">내용</label>
-						<textarea class="form-control" rows="5" name="contents" id="content" readonly="readonly">${article.contents}</textarea>
+<%-- 						<textarea class="form-control" rows="5" name="contents" id="content" readonly="readonly">${article.contents}</textarea> --%>
+							<div><pre>${article.contents}</pre></div>
+
 					</div>
 	
 				</form>
